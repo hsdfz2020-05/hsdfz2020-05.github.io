@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>哈师大附中2020级5班限定寻访</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body style='margin: 0; background: rgba(255, 223, 254, 0.121);'>
+<div id="fulltitle">
+    <img src="">
+    <span>五班限定寻访地图</span>
+    <span id="subtitle" style="font-size: 0.1vw;font-family: STKaiti;font-weight: 100;">&nbsp&nbsp&nbsp制作人：李朋翀</span>
+</div>
+<div id='map' style='width: 87vw ;height: 99.9vh; margin-right: 0%;'></div>
+
+<link rel="stylesheet" type="text/css" href="/css/index.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<script src='/js/highmaps.js'></script>
+<script src='/js/drilldown.js'></script>
+<script src='/js/nunjucks.min.js'></script>
+
+<script src='/js/china.js'></script>
+<script src='/js/zhejiang.js'></script>
+<script src='/js/beijing.js'></script>
+<script src='/js/jiangsu.js'></script>
+<script src='/js/neimenggu.js'></script>
+<script src='/js/guangdong.js'></script>
+<script src='/js/tianjin.js'></script>
+<script src='/js/hebei.js'></script>
+<script src='/js/shanxi.js'></script>
+<script src='/js/liaoning.js'></script>
+<script src='/js/jilin.js'></script>
+<script src='/js/heilongjiang.js'></script>
+<script src='/js/shanghai.js'></script>
+<script src='/js/anhui.js'></script>
+<script src='/js/fujian.js'></script>
+<script src='/js/jiangxi.js'></script>
+<script src='/js/shandong.js'></script>
+<script src='/js/henan.js'></script>
+<script src='/js/hubei.js'></script>
+<script src='/js/hunan.js'></script>
+<script src='/js/guangxi.js'></script>
+<script src='/js/hainan.js'></script>
+<script src='/js/chongqing.js'></script>
+<script src='/js/sichuan.js'></script>
+<script src='/js/guizhou.js'></script>
+<script src='/js/yunnan.js'></script>
+<script src='/js/xizang.js'></script>
+<script src='/js/shanxi2.js'></script>
+<script src='/js/gansu.js'></script>
+<script src='/js/qinghai.js'></script>
+<script src='/js/ningxia.js'></script>
+<script src='/js/xinjiang.js'></script>
+
+<script>
+    let students = [
+        {name: '贾思齐', city: '油尖旺区', province: '香港', school: '香港理工大学'},
+        {name: '朱鹏羽', city: '西安', province: '陕西', school: '西安交通大学'},
+        {name: '盛楠', city: '海淀区', province: '北京', school: '中央民族大学'},
+        {name: '何思佳', city: '成都', province: '四川', school: '西南财经大学'},
+        {name: '孙一弘', city: '海淀区', province: '北京', school: '中央民族大学'},
+        {name: '白毓哲', city: '哈尔滨', province: '黑龙江', school: '哈尔滨工业大学未来科技学院'},
+        {name: '王煊皓', city: '哈尔滨', province: '黑龙江', school: '哈尔滨工业大学'},
+        {name: '李默晗', city: '哈尔滨', province: '黑龙江', school: '哈尔滨工业大学'},
+        {name: '刘明浩', city: '哈尔滨', province: '黑龙江', school: '哈尔滨工业大学'},
+        {name: '王宇彤', city: '哈尔滨', province: '黑龙江', school: '哈尔滨工业大学'},
+        {name: '陈佳怡', city: '哈尔滨', province: '黑龙江', school: '哈尔滨工程大学'},
+        {name: '王粲', city: '长春', province: '吉林', school: '吉林大学'},
+        {name: '辛佳宝', city: '大连', province: '辽宁', school: '大连理工大学'},
+        {name: '李金泽', city: '哈尔滨', province: '黑龙江', school: '哈尔滨工程大学'},
+        {name: '栗念琪', city: '大连', province: '辽宁', school: '*'},
+        {name: '李佳桐', city: '长春', province: '吉林', school: '吉林大学'},
+        {name: '徐睿琳', city: '珠海', province: '广东', school: '中山大学'},
+        {name: '齐一鸣', city: '南京', province: '江苏', school: '南京工业大学'},
+        
+        {name: '姜雨杉', city: '西安', province: '陕西', school: '西安交通大学'},
+
+        {name: '郜思琪', city: '珠海', province: '广东', school: '中山大学'},
+        {name: '高嘉仪', city: '杨浦区', province: '上海', school: '同济大学'},
+        {name: '刘欣欣', city: '海淀区', province: '北京', school: '北京师范大学'},
+        {name: '迟思远', city: '南京', province: '江苏', school: '南京大学'},
+        {name: '王子昱', city: '海淀区', province: '北京', school: '中国农业大学'},
+        {name: '刘芷岑', city: '合肥', province: '安徽', school: '中国科学技术大学'},
+        {name: '赵一达', city: '昌平区', province: '北京', school: '北京航空航天大学'},
+        {name: '李佳芮', city: '哈尔滨', province: '黑龙江', school: '哈尔滨医科大学'},
+        {name: '许随心', city: '海淀区', province: '北京', school: '北京师范大学'},
+        {name: '李朋翀', city: '奉贤区', province: '上海', school: '华东理工大学'},
+        {name: '李奕菲', city: '哈尔滨', province: '黑龙江', school: '哈尔滨医科大学'},
+        {name: '林婧怡', city: '哈尔滨', province: '黑龙江', school: '哈尔滨医科大学'},
+        {name: '孟祥锦', city: '南京', province: '江苏', school: '南京理工大学'},
+
+        {name: '公冶庆辰', city: '武汉', province: '湖北', school: '中国人民解放军空军预警学院'},
+        {name: '王福坤', city: '广州', province: '广东', school: '华南理工大学'},
+        {name: '张鸣轩', city: '合肥', province: '安徽', school: '中国科学技术大学'},
+
+
+        {name: '杨峥', city: '武汉', province: '湖北', school: '华中科技大学'},
+        {name: '张然', city: '广州', province: '广东', school: '中国人民解放军第一军医大学'},
+        {name: '王文卓', city: '广州', province: '广东', school: '南方医科大学'},
+        {name: '齐原仝', city: '南昌', province: '江西', school: '南昌大学'},
+
+        {name: '盛溢轩', city: '南开区', province: '天津', school: '天津大学'},
+        {name: '关颖达', city: '兰州', province: '甘肃', school: '兰州大学'},
+
+    ];
+
+    let data = Highcharts.geojson(Highcharts.maps['cn/china']);
+
+    let provinces = {};
+    Highcharts.each(data, function (d) {
+        provinces[d.name] = d;
+        d.drilldown = d.name;
+        d.value = 0;
+        d.cities = {};
+        d.people = [];
+    });
+
+    for (let s of students) {
+        provinces[s.province].value++;
+        provinces[s.province].people.push(s)
+    }
+
+    for (let p of Object.values(provinces)) {
+        let filename = p.properties.filename;
+        if (!Highcharts.maps[`cn/${filename}`]) {
+            continue
+        }
+        let subData = p.subData = Highcharts.geojson(Highcharts.maps[`cn/${filename}`]);
+        Highcharts.each(subData, function (city) {
+            p.cities[city.name] = city;
+            city.value = 0;
+            city.people = [];
+        });
+        for (let s of students) {
+            if (p.cities[s.city] !== undefined) {
+                p.cities[s.city].value++;
+                p.cities[s.city].people.push(s);
+            }
+        }
+    }
+
+    function makeSeries() {
+        let series = [];
+        for (let p of Object.values(provinces)) {
+            if (p.subData) {
+                series.push({
+                    id: p.name,
+                    name: p.name,
+                    data: p.subData,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
+                })
+            }
+        }
+        return series;
+    }
+
+    function formatter() {
+        let template = `
+        <div class="tooltip">
+            <div class="series">{{series}}</div>
+            <div class="profile">
+                <div class="name">{{name}}:</div>
+                <div class="value">{{value}}人</div>
+            </div>
+            {% if name !== '黑龙江' %}
+            <div class="list">
+                {% for p in people %}
+                <div class="pinfo">
+                    <div class="pname">{{p.name}}</div>
+                    <div class="city">{{p.city}}</div>
+                    <div class="school">{{p.school}}</div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        `;
+
+        return nunjucks.renderString(template, {
+            name: this.point.name,
+            series: this.series.name,
+            value: this.point.value,
+            people: this.point.people
+        });
+    }
+
+    // 初始化图表
+    let map = new Highcharts.Map('map', {
+            chart: {
+                backgroundColor: null,
+                events: {
+                    drilldown: function (e) {
+                        let name = e.point.name;
+                        this.setTitle(null, {text: name});
+                    },
+                    drillup: function () {
+                        data = Highcharts.maps['cn/china'];
+                        this.setTitle(null, {
+                            text: '中国'
+                        });
+                    }
+                }
+            },
+
+            title: {
+                text: '',
+                style: {"color": "#333333", "fontSize": "24px"}
+            },
+
+            subtitle: {
+                text: '中国',
+                floating: true,
+                y: 50,
+                style: {
+                    fontSize: '16px'
+                }
+            },
+
+            tooltip: {
+                useHTML: true,
+                backgroundColor: '#6699ff',
+                borderRadius: 5,
+                padding: 12,
+                style: {
+                    'color': '#e1f4ff',
+                    'cursor': 'default',
+                    'fontSize': '14px',
+                    'pointerEvents': 'none',
+                    'whiteSpace': 'nowrap'
+                },
+                formatter: formatter
+            },
+
+            colorAxis: {
+                min: 0,
+                max: 50,
+                type: 'linear',
+                minColor: '#ffffff',
+                maxColor: '#cc3333',
+                stops: [
+                    [0, '#ffffff'],
+                    [0.02, '#ffe6e6'],
+                    [0.04, '#f7c8c8'],
+                    [0.1, '#e89696'],
+                    [0.5, '#d65555'],
+                    [1, '#cc3333']
+                ]
+            },
+
+            series: [{
+                data: data,
+                name: '人数',
+                joinBy: 'name',
+                tooltip: {
+                    pointFormat: `{point.name}: {point.value}`
+                }
+            }],
+
+            drilldown:
+                {
+                    activeDataLabelStyle: {
+                        color: '#FFFFFF',
+                        textDecoration:
+                            'none',
+                        textShadow:
+                            '0 0 3px #000000'
+                    }
+                    ,
+                    drillUpButton: {
+                        relativeTo: 'spacingBox',
+                        position:
+                            {
+                                x: 0,
+                                y:
+                                    60
+                            }
+                    }
+                    ,
+                    series: makeSeries()
+                }
+            ,
+
+            mapNavigation: {
+                enabled: true,
+                buttonOptions:
+                    {
+                        verticalAlign: 'bottom'
+                    }
+            }
+        })
+    ;
+</script>
+
+</body>
+</html>

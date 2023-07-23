@@ -1,0 +1,17 @@
+#fulltitle{
+    width: auto;
+    height: auto;
+    padding-right: 3ch;
+    padding-top: 3ch;
+    display: flex;
+    float: right;
+    text-align: center;
+    font-family: STXingkai;
+    font-size: 3vw;
+    color: #ff6c6c;
+    writing-mode: vertical-rl;
+}
+#subtiltle{
+    font-family: monospace;
+    font-size: 2px;
+}
